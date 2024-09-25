@@ -27,7 +27,6 @@ use phpspider\core\db;
 use phpspider\core\log;
 use phpspider\core\queue;
 use phpspider\core\requests;
-use phpspider\core\requests;
 use phpspider\core\selector;
 use phpspider\core\util;
 
@@ -1450,7 +1449,7 @@ class phpspider
         }
 
         // on_scan_page、on_list_page、on_content_page 返回false表示不需要再从此网页中发现待爬url
-        if ($is_find_url) 
+        if ($is_find_url && $page)
         {
             // 如果深度没有超过最大深度, 获取下一级URL
             if (self::$configs['max_depth'] == 0 || $link['depth'] < self::$configs['max_depth']) 
