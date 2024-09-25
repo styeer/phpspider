@@ -21,7 +21,8 @@ class log
 {
     public static $log_show = false;
     public static $log_type = false;
-    public static $log_file = "data/phpspider.log";
+	public static $log_dir = "";
+    public static $log_file = "";
     public static $out_sta = "";
     public static $out_end = "";
 
@@ -112,7 +113,7 @@ class log
             echo $msg;
         }
         //file_put_contents(PATH_DATA."/log/".strtolower($log_type).".log", $msg, FILE_APPEND | LOCK_EX);
-        file_put_contents(PATH_DATA."/log/error.log", $msg, FILE_APPEND | LOCK_EX);
+        file_put_contents(self::$log_dir."/error.log", $msg, FILE_APPEND | LOCK_EX);
     }
 
 }

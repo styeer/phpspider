@@ -27,6 +27,7 @@ use phpspider\core\db;
 use phpspider\core\log;
 use phpspider\core\queue;
 use phpspider\core\requests;
+use phpspider\core\requests;
 use phpspider\core\selector;
 use phpspider\core\util;
 
@@ -403,18 +404,14 @@ class phpspider
 
         // 先打开以显示验证报错内容
         log::$log_show = true;
-        log::$log_file = isset($configs['log_file']) ? $configs['log_file'] : PATH_DATA.'/phpspider.log';
+		log::$log_dir = isset($configs['log_dir']) ? $configs['log_dir']:PATH_DATA.'/log';
+        log::$log_file = isset($configs['log_file']) ? $configs['log_file'] : log::$log_dir.'/phpspider.log';
         log::$log_type = isset($configs['log_type']) ? $configs['log_type'] : false;
-
-        // 彩蛋
-        $included_files = get_included_files();
-        $content = file_get_contents($included_files[0]);
-        if (!preg_match("#/\* Do NOT delete this comment \*/#", $content) || !preg_match("#/\* 不要删除这段注释 \*/#", $content))
-        {
-            $msg = "Unknown error...";
-            log::error($msg);
-            exit;
-        }
+		
+		//cookies
+		if(isset($configs['cookies'])) {
+            requests::set_cookies($configs['cookies']);
+		}
 
         $configs['name']        = isset($configs['name'])        ? $configs['name']        : 'phpspider';
         $configs['proxy']       = isset($configs['proxy'])       ? $configs['proxy']       : false;
