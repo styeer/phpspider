@@ -1407,6 +1407,10 @@ class phpspider
             unset($return);
         }
 
+        if(!$page) {
+            return false;
+        }
+
         // 是否从当前页面分析提取URL
         // 回调函数如果返回false表示不需要再从此网页中发现待爬url
         $is_find_url = true;
@@ -1449,7 +1453,7 @@ class phpspider
         }
 
         // on_scan_page、on_list_page、on_content_page 返回false表示不需要再从此网页中发现待爬url
-        if ($is_find_url && $page)
+        if ($is_find_url)
         {
             // 如果深度没有超过最大深度, 获取下一级URL
             if (self::$configs['max_depth'] == 0 || $link['depth'] < self::$configs['max_depth']) 
